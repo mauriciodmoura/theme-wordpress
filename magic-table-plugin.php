@@ -91,11 +91,17 @@ function my_shortcode_list() {
     echo $search_form;
 }
 
-function insert_data_to_my_table( $name ) {
+function insert_data_to_my_table($name) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'my_table';
-    $wpdb->insert( $table_name, array( 'name' => $name ), array( '%s' ) );
+    $result = $wpdb->insert($table_name, ['name' => $name], ['%s']);
+
+    if ($result === false) {
+        return new WP_Error('db_insert_error', 'Unable to insert data into the database');
+    }
+    return true;
 }
+
 
 function my_table_rest_api_init() {
     register_rest_route( 'my-table/v1', '/insert', array(
