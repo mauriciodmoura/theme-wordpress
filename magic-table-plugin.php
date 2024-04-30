@@ -1,3 +1,4 @@
+<?php
 /*
 Plugin Name: Magic Table
 Plugin URI: https://example.com/magic-table
